@@ -1,0 +1,40 @@
+/* Jev Pong design tokens — lifted from the Design artifact (Spec · tokens board).
+   Source: https://claude.ai/artifact/MySfdUXbuCvPGnDjWm13Un
+   Light is the default; dark applies under prefers-color-scheme: dark.
+   Fonts: Geist Sans and Geist Mono only (next/font). */
+:root {
+  --bg: #F5F6F8;          /* page ground */
+  --surface: #FFFFFF;     /* cards, court, inputs */
+  --hair: #E3E5EA;        /* hairlines, card borders */
+  --fg: #111318;          /* text, primary button fill */
+  --fg-muted: #5B606B;    /* captions, tags, units (5.9:1) */
+  --fg-inflight: #7C828C; /* counting-up latency only, >= 34px (3.6:1) */
+  --court: #FFFFFF;       /* court fill, 1px --hair stroke */
+  --court-line: #D5D8DE;  /* centre line, dashed 3/7 */
+  --paddle: #14161C;      /* both paddles, every lane */
+  --ball: #5B606B;        /* non-Jev ball and trail */
+  --jev: #FF5416;         /* Jev ball, trail, bar, number >= 24px (3.2:1) */
+  --jev-ink: #CC3D0A;     /* orange text under 24px (4.9:1) */
+  --bar-muted: #D5D8DE;   /* non-Jev bars on the end card */
+  --btn-fg: #FFFFFF;      /* text on the primary button (fill is --fg) */
+  --btn-border: #C9CDD4;  /* secondary button, input border */
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0A0B0F;          /* page ground, clip ground */
+    --surface: #12141A;
+    --hair: #1B1D24;        /* white 8% on --bg */
+    --fg: #F2F3F5;
+    --fg-muted: #8B909B;    /* minimum for 12px text (6.0:1) */
+    --fg-inflight: #6B7080; /* >= 34px only (4.0:1) */
+    --court: #12141A;
+    --court-line: #2D3038;  /* white 16%; dashed 3/7 */
+    --paddle: #E7E9EE;
+    --ball: #C8CCD4;
+    --jev: #FF5416;         /* 6.4:1 on dark */
+    --jev-ink: #FF5416;
+    --bar-muted: #2A2D36;
+    --btn-fg: #0A0B0F;
+    --btn-border: #33363E;  /* white 18% */
+  }
+}

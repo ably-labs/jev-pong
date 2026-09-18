@@ -1,0 +1,29 @@
+{
+  "v": 3,
+  "createdOnFiles": { "v": 1, "at": "2026-09-17T10:00:00Z" },
+  "title": "Jev Pong",
+  "launch": { "view": "canvas" },
+  "pages": [],
+  "boards": {
+    "Opening.dc.html": { "x": 0, "y": 0, "w": 1200, "h": 675, "title": "Clip · opening 1200×675 · t = 0.1 s · dark" },
+    "Main.dc.html": { "x": 1280, "y": 0, "w": 1200, "h": 675, "title": "Clip · mid frame 1200×675 · t = 2.0 s · dark" },
+    "EndCard.dc.html": { "x": 2560, "y": 0, "w": 1200, "h": 675, "title": "Clip · end card 1200×675 · OG-safe · dark" },
+    "Square.dc.html": { "x": 3840, "y": 0, "w": 1080, "h": 1080, "title": "Clip · square 1080×1080 · t = 2.0 s · dark" },
+    "HomeDesktop.dc.html": { "x": 0, "y": 1500, "w": 1280, "h": 1120, "title": "Home · desktop 1280 · light" },
+    "HomePhone.dc.html": { "x": 1360, "y": 1500, "w": 390, "h": 1240, "title": "Home · phone 390 · dark" },
+    "Play.dc.html": { "x": 1830, "y": 1500, "w": 1280, "h": 800, "title": "Play · desktop 1280 · light" },
+    "Watch.dc.html": { "x": 3190, "y": 1500, "w": 390, "h": 844, "title": "Watch · phone 390 · dark" },
+    "WatchStates.dc.html": { "x": 3660, "y": 1500, "w": 390, "h": 320, "title": "Watch · status states" },
+    "Tokens.dc.html": { "x": 0, "y": 3160, "w": 1200, "h": 2280, "title": "Spec · tokens" },
+    "Motion.dc.html": { "x": 1280, "y": 3160, "w": 1200, "h": 1460, "title": "Spec · motion notes" }
+  },
+  "order": ["Opening.dc.html", "Main.dc.html", "EndCard.dc.html", "Square.dc.html", "HomeDesktop.dc.html", "HomePhone.dc.html", "Play.dc.html", "Watch.dc.html", "WatchStates.dc.html", "Tokens.dc.html", "Motion.dc.html"],
+  "notes": {
+    "t1": { "x": 0, "y": -300, "text": "Clip — opening, mid frame, end card, square", "kind": "title1", "maxW": 4920 },
+    "t2": { "x": 0, "y": 1200, "text": "Site — home, play, watch", "kind": "title1", "maxW": 4050 },
+    "t3": { "x": 0, "y": 2860, "text": "Spec — tokens and motion notes", "kind": "title1", "maxW": 2480 },
+    "n1": { "x": 2560, "y": 760, "w": 460, "size": "s", "text": "End card doubles as the OG image: everything sits inside the 1200×630 centre crop (22 px trimmed top and bottom). Bars are proportional to decisions, 28 / 9 / 7 / 3; returns are the small line under each bar. Placeholder [URL] until the domain is fixed." },
+    "n2": { "x": 1280, "y": 760, "w": 460, "size": "s", "text": "Clip is dark. Serve is scripted: all four balls leave centre at t = 0. The ms number shows max(last latency, elapsed of the in-flight decision), so GPT counts up to 3776 before its ball moves again. Lanes are ordered by measured latency and never re-sort." }
+  },
+  "designSystems": []
+}

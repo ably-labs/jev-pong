@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400..900&amp;family=Geist+Mono:wght@400..900&amp;display=swap">
+  <style>
+    body { margin: 0; background: #F5F6F8; color: #111318; font-family: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #111318; } a:hover { color: #000000; }
+  </style>
+</helmet>
+<div style="width:1200px; height:1460px; box-sizing:border-box; padding:48px 56px; background:#F5F6F8; color:#111318; display:flex; flex-direction:column; gap:32px; font-family:'Geist', system-ui, sans-serif;">
+
+  <div style="display:flex; flex-direction:column; gap:8px;">
+    <h1 style="margin:0; font-size:32px; font-weight:700; letter-spacing:-0.02em; line-height:1.1;">Jev Pong motion notes</h1>
+    <p style="margin:0; font-size:15px; color:#5B606B;">Durations in ms unless stated. Linear means linear: the speed of the ball is the data.</p>
+  </div>
+
+  <div style="display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:20px;">
+
+    <div style="display:flex; flex-direction:column; gap:8px; background:#FFFFFF; border:1px solid #E3E5EA; border-radius:10px; padding:18px 20px;">
+      <div style="display:flex; align-items:baseline; gap:10px;"><span style="font-family:'Geist Mono', ui-monospace, monospace; font-size:12px; color:#5B606B;">01</span><span style="font-size:15px; font-weight:600;">Ball, in the clip</span></div>
+      <p style="margin:0; font-size:13.5px; line-height:1.55; color:#111318;">At t = 0 the scripted serve tweens the ball one step out of centre over <span style="font-family:'Geist Mono', ui-monospace, monospace;">300</span> ease-out, in all four lanes at once. Every later step is a <strong>linear</strong> tween whose duration is exactly that decision's recorded latency, timed to arrive as the decision lands. No easing inside a step. GPT's ball sits still on its serve step until <span style="font-family:'Geist Mono', ui-monospace, monospace;">3776</span>.</p>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:8px; background:#FFFFFF; border:1px solid #E3E5EA; border-radius:10px; padding:18px 20px;">
+      <div style="display:flex; align-items:baseline; gap:10px;"><span style="font-family:'Geist Mono', ui-monospace, monospace; font-size:12px; color:#5B606B;">02</span><span style="font-size:15px; font-weight:600;">Ball, on the site</span></div>
+      <p style="margin:0; font-size:13.5px; line-height:1.55;">The home replay is driven by the recording and behaves exactly as 01. Live play and watch: on each snapshot, tween the ball to its new position over <span style="font-family:'Geist Mono', ui-monospace, monospace;">min(latency, 1200)</span>, linear. Paddles ease-out over <span style="font-family:'Geist Mono', ui-monospace, monospace;">120</span> to the decided y. Score changes never interpolate.</p>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:8px; background:#FFFFFF; border:1px solid #E3E5EA; border-radius:10px; padding:18px 20px;">
+      <div style="display:flex; align-items:baseline; gap:10px;"><span style="font-family:'Geist Mono', ui-monospace, monospace; font-size:12px; color:#5B606B;">03</span><span style="font-size:15px; font-weight:600;">Trail</span></div>
+      <p style="margin:0; font-size:13.5px; line-height:1.55;">Length follows speed. On the clip court <span style="font-family:'Geist Mono', ui-monospace, monospace;">trail_px = clamp(260 × 430 / latency, 24, 260)</span>; scale with court width elsewhere. Seven discs behind the ball: radius r → 0.35r, opacity 0.5 → 0.07, spacing growing 12% per disc, all in the ball's colour. No blur, no glow. Trail samples the actual path, so it bends at a bounce.</p>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:8px; background:#FFFFFF; border:1px solid #E3E5EA; border-radius:10px; padding:18px 20px;">
+      <div style="display:flex; align-items:baseline; gap:10px;"><span style="font-family:'Geist Mono', ui-monospace, monospace; font-size:12px; color:#5B606B;">04</span><span style="font-size:15px; font-weight:600;">Latency number</span></div>
+      <p style="margin:0; font-size:13.5px; line-height:1.55;">Shows <span style="font-family:'Geist Mono', ui-monospace, monospace;">max(lastLatency, elapsedInFlight)</span>. A steady lane reads steady; a slower-than-last decision climbs; the first decision has no last, so it counts up from 0 in the in-flight style (weight 400, --fg-inflight, unit too). On landing: snap to the measured value, back to weight 500 and the lane colour, and pulse: scale 1 → 1.06 → 1 over <span style="font-family:'Geist Mono', ui-monospace, monospace;">180</span> (60 out, 120 in), colour flashes to pure white or black for <span style="font-family:'Geist Mono', ui-monospace, monospace;">120</span>. The unit does not pulse. Update per frame, not per ms.</p>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:8px; background:#FFFFFF; border:1px solid #E3E5EA; border-radius:10px; padding:18px 20px;">
+      <div style="display:flex; align-items:baseline; gap:10px;"><span style="font-family:'Geist Mono', ui-monospace, monospace; font-size:12px; color:#5B606B;">05</span><span style="font-size:15px; font-weight:600;">Counters and badges</span></div>
+      <p style="margin:0; font-size:13.5px; line-height:1.55;">The decisions · returns line increments with a <span style="font-family:'Geist Mono', ui-monospace, monospace;">120</span> opacity dip, no bounce. Status badges (serving, point, game over, out of credits) fade in <span style="font-family:'Geist Mono', ui-monospace, monospace;">150</span>, hold, fade out <span style="font-family:'Geist Mono', ui-monospace, monospace;">150</span>; they never slide and never push the layout.</p>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:8px; background:#FFFFFF; border:1px solid #E3E5EA; border-radius:10px; padding:18px 20px;">
+      <div style="display:flex; align-items:baseline; gap:10px;"><span style="font-family:'Geist Mono', ui-monospace, monospace; font-size:12px; color:#5B606B;">06</span><span style="font-size:15px; font-weight:600;">Presence (the Ably moment)</span></div>
+      <p style="margin:0; font-size:13.5px; line-height:1.55;">The live dot breathes: opacity 1 → 0.4 → 1 over <span style="font-family:'Geist Mono', ui-monospace, monospace;">2000</span> ease-in-out. A new feed line ("Jev joined") fades in over <span style="font-family:'Geist Mono', ui-monospace, monospace;">200</span>, is bold for <span style="font-family:'Geist Mono', ui-monospace, monospace;">3000</span>, then settles to muted. Watcher count and dots cross-fade in <span style="font-family:'Geist Mono', ui-monospace, monospace;">150</span>; a dot is added or removed per member, capped at six plus a count.</p>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:8px; background:#FFFFFF; border:1px solid #E3E5EA; border-radius:10px; padding:18px 20px;">
+      <div style="display:flex; align-items:baseline; gap:10px;"><span style="font-family:'Geist Mono', ui-monospace, monospace; font-size:12px; color:#5B606B;">07</span><span style="font-size:15px; font-weight:600;">End card timing</span></div>
+      <p style="margin:0; font-size:13.5px; line-height:1.55;">At <span style="font-family:'Geist Mono', ui-monospace, monospace;">12.0 s</span> freeze all four courts for <span style="font-family:'Geist Mono', ui-monospace, monospace;">400</span>, cross-fade <span style="font-family:'Geist Mono', ui-monospace, monospace;">300</span> to the end card, bars grow 0 → length over <span style="font-family:'Geist Mono', ui-monospace, monospace;">600</span> ease-out staggered <span style="font-family:'Geist Mono', ui-monospace, monospace;">80</span> top to bottom, numbers count up in sync. Hold <span style="font-family:'Geist Mono', ui-monospace, monospace;">2500</span>. Clip length 15.2 s. Loop is a hard cut to the opening frame, no fade. The static image and OG image are the held frame.</p>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:8px; background:#FFFFFF; border:1px solid #E3E5EA; border-radius:10px; padding:18px 20px;">
+      <div style="display:flex; align-items:baseline; gap:10px;"><span style="font-family:'Geist Mono', ui-monospace, monospace; font-size:12px; color:#5B606B;">08</span><span style="font-size:15px; font-weight:600;">Opening and reduced motion</span></div>
+      <p style="margin:0; font-size:13.5px; line-height:1.55;">No intro animation: frame 1 is the finished layout with four balls at centre and four numbers at 0. With prefers-reduced-motion: no trail, no pulse, no breathing dot, ball jumps per snapshot; the numbers still count up, since that is information, not decoration.</p>
+    </div>
+
+  </div>
+
+  <div style="display:flex; flex-direction:column; gap:12px;">
+    <div style="font-size:14px; font-weight:600;">Must not get wrong</div>
+    <div style="display:flex; flex-direction:column; gap:8px; background:#FFFFFF; border:1px solid #E3E5EA; border-radius:10px; padding:16px 20px; font-size:13.5px; line-height:1.55;">
+      <div style="display:flex; gap:12px;"><span style="font-family:'Geist Mono', ui-monospace, monospace; font-size:12px; color:#5B606B; padding-top:2px;">a</span><span>Ball speed is data. Ease nothing inside a step; only the serve and the paddles ease.</span></div>
+      <div style="display:flex; gap:12px;"><span style="font-family:'Geist Mono', ui-monospace, monospace; font-size:12px; color:#5B606B; padding-top:2px;">b</span><span>Lanes are ordered by measured latency once, at record time, and never re-sort.</span></div>
+      <div style="display:flex; gap:12px;"><span style="font-family:'Geist Mono', ui-monospace, monospace; font-size:12px; color:#5B606B; padding-top:2px;">c</span><span>Orange is Jev's ball, trail, number and bar. Not paddles, not buttons, not the live dot, not the name.</span></div>
+      <div style="display:flex; gap:12px;"><span style="font-family:'Geist Mono', ui-monospace, monospace; font-size:12px; color:#5B606B; padding-top:2px;">d</span><span>The number is the largest thing in the row at every width. If the phone row cannot fit 34 px, drop the name to a second line, not the number.</span></div>
+      <div style="display:flex; gap:12px;"><span style="font-family:'Geist Mono', ui-monospace, monospace; font-size:12px; color:#5B606B; padding-top:2px;">e</span><span>Tabular figures on every mono number so right-aligned columns do not jitter while counting.</span></div>
+      <div style="display:flex; gap:12px;"><span style="font-family:'Geist Mono', ui-monospace, monospace; font-size:12px; color:#5B606B; padding-top:2px;">f</span><span>Powered by Ably on every surface with clearspace; the real SVG replaces the dashed box at the same height, never scaled to fit text.</span></div>
+      <div style="display:flex; gap:12px;"><span style="font-family:'Geist Mono', ui-monospace, monospace; font-size:12px; color:#5B606B; padding-top:2px;">g</span><span>No horizontal scroll at 390. Live games are a list on phone, cards on desktop.</span></div>
+      <div style="display:flex; gap:12px;"><span style="font-family:'Geist Mono', ui-monospace, monospace; font-size:12px; color:#5B606B; padding-top:2px;">h</span><span>Copy stays anti-hype: "typed-decision model", never "can't hallucinate", never vendor latency claims. The measurement line is one string in one place.</span></div>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script data-dc-script data-props='{"$preview":{"width":1200,"height":1460}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

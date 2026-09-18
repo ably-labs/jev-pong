@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400..900&amp;family=Geist+Mono:wght@400..900&amp;display=swap">
+  <style>
+    body { margin: 0; background: #0A0B0F; color: #F2F3F5; font-family: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #F2F3F5; } a:hover { color: #FFFFFF; }
+  </style>
+</helmet>
+<div style="width:1080px; height:1080px; box-sizing:border-box; padding:44px 44px 36px; background:#0A0B0F; color:#F2F3F5; display:flex; flex-direction:column; gap:14px; font-family:'Geist', system-ui, sans-serif;">
+
+  <div style="display:flex; justify-content:space-between; align-items:baseline; height:28px;">
+    <div style="display:flex; align-items:baseline; gap:14px;">
+      <div style="font-size:24px; font-weight:700; letter-spacing:-0.02em; line-height:1;">Jev Pong</div>
+      <div style="font-size:15px; color:#8B909B;">One step per model decision</div>
+    </div>
+    <div style="display:flex; align-items:baseline; gap:8px; font-family:'Geist Mono', ui-monospace, Menlo, monospace;">
+      <span style="font-size:13px; color:#8B909B;">elapsed</span>
+      <span style="font-size:20px; font-weight:500;">2.0 s</span>
+    </div>
+  </div>
+
+  <div style="display:flex; flex-direction:column; gap:16px; flex-grow:1; justify-content:center;">
+
+    <div style="display:flex; flex-direction:column; gap:8px;">
+      <div style="display:flex; justify-content:space-between; align-items:flex-end;">
+        <div style="display:flex; flex-direction:column; gap:4px;">
+          <div style="font-size:22px; font-weight:600; line-height:1.1;">Jev</div>
+          <div style="font-size:12px; letter-spacing:0.04em; text-transform:uppercase; color:#8B909B;">TypeSafe AI</div>
+        </div>
+        <div style="display:flex; flex-direction:column; align-items:flex-end; gap:4px;">
+          <div style="display:flex; align-items:baseline; gap:6px; font-family:'Geist Mono', ui-monospace, Menlo, monospace; line-height:1;">
+            <span style="font-size:52px; font-weight:500; letter-spacing:-0.02em; color:{{accent}};">431</span>
+            <span style="font-size:18px; color:#8B909B;">ms</span>
+          </div>
+          <div style="font-size:13px; color:#8B909B;">5 decisions · 0 returns</div>
+        </div>
+      </div>
+      <svg width="992" height="130" style="display:block;">
+        <rect x="0.5" y="0.5" width="991" height="129" rx="6" style="fill:#12141A; stroke:rgba(255,255,255,0.08); stroke-width:1;"></rect>
+        <line x1="496" y1="12" x2="496" y2="118" style="stroke:rgba(255,255,255,0.16); stroke-width:1; stroke-dasharray:3 7;"></line>
+        <rect x="16" y="27" width="6" height="52" rx="3" style="fill:#E7E9EE;"></rect>
+        <rect x="970" y="37" width="6" height="52" rx="3" style="fill:#E7E9EE;"></rect>
+        <circle cx="672" cy="66" r="3" style="fill:{{accent}}; opacity:0.07;"></circle>
+        <circle cx="612" cy="64" r="3.7" style="fill:{{accent}}; opacity:0.12;"></circle>
+        <circle cx="557" cy="62" r="4.4" style="fill:{{accent}}; opacity:0.18;"></circle>
+        <circle cx="507" cy="60" r="5.1" style="fill:{{accent}}; opacity:0.25;"></circle>
+        <circle cx="462" cy="58" r="5.8" style="fill:{{accent}}; opacity:0.32;"></circle>
+        <circle cx="422" cy="56" r="6.5" style="fill:{{accent}}; opacity:0.4;"></circle>
+        <circle cx="387" cy="54.5" r="7.2" style="fill:{{accent}}; opacity:0.5;"></circle>
+        <circle cx="357" cy="53" r="8" style="fill:{{accent}};"></circle>
+      </svg>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:8px;">
+      <div style="display:flex; justify-content:space-between; align-items:flex-end;">
+        <div style="display:flex; flex-direction:column; gap:4px;">
+          <div style="font-size:22px; font-weight:600; line-height:1.1;">Gemini 3.8 Flash</div>
+          <div style="font-size:12px; letter-spacing:0.04em; text-transform:uppercase; color:#8B909B;">Google</div>
+        </div>
+        <div style="display:flex; flex-direction:column; align-items:flex-end; gap:4px;">
+          <div style="display:flex; align-items:baseline; gap:6px; font-family:'Geist Mono', ui-monospace, Menlo, monospace; line-height:1;">
+            <span style="font-size:52px; font-weight:500; letter-spacing:-0.02em; color:#F2F3F5;">1402</span>
+            <span style="font-size:18px; color:#8B909B;">ms</span>
+          </div>
+          <div style="font-size:13px; color:#8B909B;">1 decision · 0 returns</div>
+        </div>
+      </div>
+      <svg width="992" height="130" style="display:block;">
+        <rect x="0.5" y="0.5" width="991" height="129" rx="6" style="fill:#12141A; stroke:rgba(255,255,255,0.08); stroke-width:1;"></rect>
+        <line x1="496" y1="12" x2="496" y2="118" style="stroke:rgba(255,255,255,0.16); stroke-width:1; stroke-dasharray:3 7;"></line>
+        <rect x="16" y="39" width="6" height="52" rx="3" style="fill:#E7E9EE;"></rect>
+        <rect x="970" y="48" width="6" height="52" rx="3" style="fill:#E7E9EE;"></rect>
+        <circle cx="695" cy="70" r="3.4" style="fill:#C8CCD4; opacity:0.09;"></circle>
+        <circle cx="672" cy="71.3" r="4.4" style="fill:#C8CCD4; opacity:0.17;"></circle>
+        <circle cx="651" cy="72.6" r="5.4" style="fill:#C8CCD4; opacity:0.27;"></circle>
+        <circle cx="632" cy="73.5" r="6.4" style="fill:#C8CCD4; opacity:0.38;"></circle>
+        <circle cx="615" cy="74" r="8" style="fill:#C8CCD4;"></circle>
+      </svg>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:8px;">
+      <div style="display:flex; justify-content:space-between; align-items:flex-end;">
+        <div style="display:flex; flex-direction:column; gap:4px;">
+          <div style="font-size:22px; font-weight:600; line-height:1.1;">Claude Haiku 4.5</div>
+          <div style="font-size:12px; letter-spacing:0.04em; text-transform:uppercase; color:#8B909B;">Anthropic</div>
+        </div>
+        <div style="display:flex; flex-direction:column; align-items:flex-end; gap:4px;">
+          <div style="display:flex; align-items:baseline; gap:6px; font-family:'Geist Mono', ui-monospace, Menlo, monospace; line-height:1;">
+            <span style="font-size:52px; font-weight:500; letter-spacing:-0.02em; color:#F2F3F5;">1688</span>
+            <span style="font-size:18px; color:#8B909B;">ms</span>
+          </div>
+          <div style="font-size:13px; color:#8B909B;">1 decision · 0 returns</div>
+        </div>
+      </div>
+      <svg width="992" height="130" style="display:block;">
+        <rect x="0.5" y="0.5" width="991" height="129" rx="6" style="fill:#12141A; stroke:rgba(255,255,255,0.08); stroke-width:1;"></rect>
+        <line x1="496" y1="12" x2="496" y2="118" style="stroke:rgba(255,255,255,0.16); stroke-width:1; stroke-dasharray:3 7;"></line>
+        <rect x="16" y="39" width="6" height="52" rx="3" style="fill:#E7E9EE;"></rect>
+        <rect x="970" y="39" width="6" height="52" rx="3" style="fill:#E7E9EE;"></rect>
+        <circle cx="804" cy="61" r="3.4" style="fill:#C8CCD4; opacity:0.09;"></circle>
+        <circle cx="781" cy="62.3" r="4.4" style="fill:#C8CCD4; opacity:0.17;"></circle>
+        <circle cx="760" cy="63.6" r="5.4" style="fill:#C8CCD4; opacity:0.27;"></circle>
+        <circle cx="741" cy="64.5" r="6.4" style="fill:#C8CCD4; opacity:0.38;"></circle>
+        <circle cx="724" cy="65" r="8" style="fill:#C8CCD4;"></circle>
+      </svg>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:8px;">
+      <div style="display:flex; justify-content:space-between; align-items:flex-end;">
+        <div style="display:flex; flex-direction:column; gap:4px;">
+          <div style="font-size:22px; font-weight:600; line-height:1.1;">GPT-5.6 Sol</div>
+          <div style="font-size:12px; letter-spacing:0.04em; text-transform:uppercase; color:#8B909B;">OpenAI</div>
+        </div>
+        <div style="display:flex; flex-direction:column; align-items:flex-end; gap:4px;">
+          <div style="display:flex; align-items:baseline; gap:6px; font-family:'Geist Mono', ui-monospace, Menlo, monospace; line-height:1;">
+            <span style="font-size:52px; font-weight:400; letter-spacing:-0.02em; color:#6B7080;">2004</span>
+            <span style="font-size:18px; color:#6B7080;">ms</span>
+          </div>
+          <div style="font-size:13px; color:#8B909B;">0 decisions · 0 returns</div>
+        </div>
+      </div>
+      <svg width="992" height="130" style="display:block;">
+        <rect x="0.5" y="0.5" width="991" height="129" rx="6" style="fill:#12141A; stroke:rgba(255,255,255,0.08); stroke-width:1;"></rect>
+        <line x1="496" y1="12" x2="496" y2="118" style="stroke:rgba(255,255,255,0.16); stroke-width:1; stroke-dasharray:3 7;"></line>
+        <rect x="16" y="39" width="6" height="52" rx="3" style="fill:#E7E9EE;"></rect>
+        <rect x="970" y="39" width="6" height="52" rx="3" style="fill:#E7E9EE;"></rect>
+        <circle cx="521" cy="65" r="4.6" style="fill:#C8CCD4; opacity:0.15;"></circle>
+        <circle cx="534" cy="65" r="5.8" style="fill:#C8CCD4; opacity:0.3;"></circle>
+        <circle cx="546" cy="65" r="8" style="fill:#C8CCD4;"></circle>
+      </svg>
+    </div>
+
+  </div>
+
+  <div style="display:flex; justify-content:space-between; align-items:center; height:54px;">
+    <div style="display:flex; align-items:center;">
+      <span style="font-size:13px; color:#8B909B;">Powered by</span>
+      <div style="padding:16px; display:flex;">
+        <div style="width:72px; height:22px; box-sizing:border-box; border:1px dashed rgba(255,255,255,0.4); border-radius:3px; display:flex; align-items:center; justify-content:center; font-size:10px; letter-spacing:0.02em; color:#8B909B;">Ably logo</div>
+      </div>
+    </div>
+    <div style="font-size:12px; color:#8B909B; text-align:right; max-width:560px;">Measured from London via Vercel AI Gateway · AI SDK evaluate · Jev by TypeSafe AI</div>
+  </div>
+
+</div>
+</x-dc>
+<script data-dc-script data-props='{"accent":{"editor":"color","default":"#FF5416","section":"Lane"},"$preview":{"width":1080,"height":1080}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { accent: this.props.accent ?? '#FF5416' };
+  }
+}
+</script>
+</body>
+</html>

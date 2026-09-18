@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400..900&amp;family=Geist+Mono:wght@400..900&amp;display=swap">
+  <style>
+    body { margin: 0; background: #F5F6F8; color: #111318; font-family: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #111318; text-decoration: none; } a:hover { color: #000000; }
+  </style>
+</helmet>
+<div style="width:1280px; height:800px; box-sizing:border-box; padding:0 80px 24px; background:#F5F6F8; color:#111318; display:flex; flex-direction:column; font-family:'Geist', system-ui, sans-serif;">
+
+  <header style="display:flex; justify-content:space-between; align-items:center; height:72px;">
+    <a href="#home" style="font-size:16px; font-weight:700; letter-spacing:-0.02em; color:#111318;">Jev Pong</a>
+    <div style="display:flex; align-items:center; gap:8px; font-size:13px; color:#5B606B;">
+      <span>Playing as</span>
+      <span style="font-family:'Geist Mono', ui-monospace, Menlo, monospace; color:#111318;">anon-4c2f</span>
+    </div>
+  </header>
+
+  <div style="display:grid; grid-template-columns:176px minmax(0,1fr) 200px; gap:20px; align-items:center; padding-top:20px;">
+    <div style="display:flex; flex-direction:column; gap:4px;">
+      <div style="font-size:18px; font-weight:600; line-height:1.1;">You</div>
+      <div style="font-size:11.5px; letter-spacing:0.04em; text-transform:uppercase; color:#5B606B;">anon-4c2f</div>
+      <div style="font-size:12px; color:#5B606B; padding-top:6px;">↑ ↓ keys or drag</div>
+    </div>
+    <svg width="704" height="300" style="display:block;">
+      <rect x="0.5" y="0.5" width="703" height="299" rx="8" style="fill:#FFFFFF; stroke:#E3E5EA; stroke-width:1;"></rect>
+      <line x1="352" y1="14" x2="352" y2="286" style="stroke:#D5D8DE; stroke-width:1; stroke-dasharray:3 7;"></line>
+      <text x="332" y="34" style="font-family:'Geist Mono', ui-monospace, Menlo, monospace; font-size:16px; fill:#5B606B; text-anchor:end;">2</text>
+      <text x="372" y="34" style="font-family:'Geist Mono', ui-monospace, Menlo, monospace; font-size:16px; fill:#5B606B; text-anchor:start;">4</text>
+      <rect x="14" y="122" width="6" height="56" rx="3" style="fill:#14161C;"></rect>
+      <rect x="684" y="148" width="6" height="56" rx="3" style="fill:#14161C;"></rect>
+      <circle cx="322" cy="150" r="3.8" style="fill:#5B606B; opacity:0.12;"></circle>
+      <circle cx="344" cy="152.5" r="4.4" style="fill:#5B606B; opacity:0.2;"></circle>
+      <circle cx="366" cy="155" r="5" style="fill:#5B606B; opacity:0.3;"></circle>
+      <circle cx="386" cy="157.5" r="5.6" style="fill:#5B606B; opacity:0.4;"></circle>
+      <circle cx="404" cy="159.5" r="6.2" style="fill:#5B606B; opacity:0.5;"></circle>
+      <circle cx="420" cy="161" r="7" style="fill:#5B606B;"></circle>
+    </svg>
+    <div style="display:flex; flex-direction:column; align-items:flex-end; gap:5px;">
+      <div style="font-size:18px; font-weight:600; line-height:1.1;">Jev</div>
+      <div style="font-size:11.5px; letter-spacing:0.04em; text-transform:uppercase; color:#5B606B;">TypeSafe AI</div>
+      <div style="display:flex; align-items:baseline; gap:6px; font-family:'Geist Mono', ui-monospace, Menlo, monospace; line-height:1; padding-top:10px;">
+        <span style="font-size:48px; font-weight:500; letter-spacing:-0.02em; color:{{accent}};">431</span>
+        <span style="font-size:16px; color:#5B606B;">ms</span>
+      </div>
+      <div style="font-size:13px; color:#5B606B;">12 decisions · 2 returns</div>
+    </div>
+  </div>
+
+  <div style="display:grid; grid-template-columns:220px minmax(0,1fr) 200px; gap:24px; align-items:start; margin-top:20px; padding:16px 20px; background:#FFFFFF; border:1px solid #E3E5EA; border-radius:10px;">
+    <div style="display:flex; flex-direction:column; gap:6px;">
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span style="width:7px; height:7px; border-radius:50%; background:#111318;"></span>
+        <span style="font-family:'Geist Mono', ui-monospace, Menlo, monospace; font-size:13px;">game:4c2f</span>
+      </div>
+      <div style="font-size:12px; color:#5B606B;">Everyone here is on this channel</div>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:6px; font-family:'Geist Mono', ui-monospace, Menlo, monospace; font-size:13px;">
+      <div style="display:flex; gap:12px; color:#5B606B;"><span>0:00</span><span>you joined</span></div>
+      <div style="display:flex; gap:12px; color:#111318; font-weight:600;"><span style="color:#5B606B; font-weight:400;">0:01</span><span>Jev joined</span></div>
+      <div style="display:flex; gap:12px; color:#5B606B;"><span>0:12</span><span>anon-91be is watching</span></div>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
+      <div style="font-size:14px; font-weight:600;">3 on the channel</div>
+      <div style="display:flex; align-items:center; gap:5px;">
+        <span style="width:8px; height:8px; border-radius:50%; background:#111318;"></span>
+        <span style="width:8px; height:8px; border-radius:50%; background:#111318;"></span>
+        <span style="width:8px; height:8px; border-radius:50%; background:#111318;"></span>
+        <span style="font-size:12px; color:#5B606B; padding-left:4px;">you, Jev, 1 watching</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex; align-items:center; gap:12px; padding-top:16px;">
+    <label for="watchlink" style="font-size:13px; color:#5B606B;">Watch link</label>
+    <input id="watchlink" type="text" readonly="readonly" value="[URL]/watch/4c2f" style="width:360px; height:40px; box-sizing:border-box; padding:0 12px; border:1px solid #C9CDD4; border-radius:8px; background:#FFFFFF; color:#111318; font-family:'Geist Mono', ui-monospace, Menlo, monospace; font-size:13px;">
+    <button type="button" style="height:40px; padding:0 16px; border:1px solid #C9CDD4; border-radius:8px; background:#FFFFFF; color:#111318; font-family:'Geist', system-ui, sans-serif; font-size:14px; font-weight:500; cursor:pointer;">Copy</button>
+  </div>
+
+  <div style="flex-grow:1;"></div>
+
+  <footer style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid #E3E5EA; padding-top:16px; height:70px; box-sizing:border-box;">
+    <div style="display:flex; align-items:center;">
+      <span style="font-size:13px; color:#5B606B;">Powered by</span>
+      <div style="padding:16px; display:flex;">
+        <div style="width:72px; height:22px; box-sizing:border-box; border:1px dashed rgba(17,19,24,0.4); border-radius:3px; display:flex; align-items:center; justify-content:center; font-size:10px; letter-spacing:0.02em; color:#5B606B;">Ably logo</div>
+      </div>
+    </div>
+    <div style="font-size:13px; color:#5B606B; text-align:right;">Vercel AI Gateway · AI SDK evaluate · Jev by TypeSafe AI</div>
+  </footer>
+
+</div>
+</x-dc>
+<script data-dc-script data-props='{"accent":{"editor":"color","default":"#FF5416","section":"Lane"},"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { accent: this.props.accent ?? '#FF5416' };
+  }
+}
+</script>
+</body>
+</html>
