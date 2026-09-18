@@ -18,7 +18,7 @@
  */
 
 import type { ClipFontRole } from './text';
-import { CREDITS, MEASUREMENT } from '../config/site';
+import { CREDIT_PARTS, MEASUREMENT } from '../config/site';
 
 export type { ClipFontRole };
 
@@ -221,14 +221,29 @@ export interface ClipLogo {
 export interface ClipTokens {
   colors: ClipColors;
   fonts: ClipFonts;
-  sizes: { wide: ClipLayoutSizes; square: ClipLayoutSizes };
+  sizes: {
+    wide: ClipLayoutSizes;
+    square: ClipLayoutSizes;
+    social: ClipLayoutSizes;
+    duel: ClipLayoutSizes;
+  };
   trail: ClipTrail;
   motion: ClipMotion;
   copy: ClipCopy;
   logo: ClipLogo;
 }
 
-export type ClipLayout = 'wide' | 'square';
+/**
+ * wide   1200 x 675, the OG card and a desktop post.
+ * square 1080 x 1080, four lanes stacked as on a phone.
+ * social 1080 x 1350 (4:5), the same four lanes with room to breathe: taller
+ *        courts, a bigger ball and a number you can read in a feed at arm's
+ *        length. This is the one for X and LinkedIn on a phone.
+ * duel   1080 x 1350, two or three lanes only (`--lanes jev,haiku`), each court
+ *        a third of the frame tall and the number the size of a headline. The
+ *        meme cut: one glance says which ball is moving.
+ */
+export type ClipLayout = 'wide' | 'square' | 'social' | 'duel';
 
 // ---------------------------------------------------------------------------
 // The defaults
@@ -404,6 +419,117 @@ export const CLIP_TOKENS: ClipTokens = {
       endUrlLabelSize: 17,
       endUrlSize: 24,
     },
+
+    // 1080 x 1350, padding 48 / 48 / 40. Stacked, with everything a size up.
+    social: {
+      width: 1080,
+      height: 1350,
+      padTop: 48,
+      padX: 48,
+      padBottom: 40,
+
+      headerH: 32,
+      blockGap: 18,
+      titleSize: 28,
+      taglineSize: 17,
+      elapsedLabelSize: 14,
+      elapsedSize: 22,
+
+      laneMode: 'stack',
+      laneGap: 22,
+      nameColW: 0,
+      numberColW: 0,
+      colGap: 0,
+      stackGap: 10,
+      courtW: 984,
+      courtH: 150,
+      nameSize: 26,
+      providerSize: 13,
+      numberSize: 84,
+      unitSize: 22,
+      countsSize: 15,
+
+      stripH: 54,
+      poweredSize: 14,
+      logoH: 24,
+      logoClearspace: 18,
+      creditsSize: 12,
+
+      endPadTop: 90,
+      endPadX: 72,
+      endPadBottom: 48,
+      endTitleSize: 22,
+      endHeadlineSize: 78,
+      endSubtitleSize: 22,
+      endNameColW: 280,
+      endCountColW: 170,
+      endColGap: 32,
+      endRowGap: 32,
+      endMaxGap: 96,
+      endNameSize: 28,
+      endBarH: 34,
+      endBarRadius: 5,
+      endReturnsSize: 14,
+      endCountSize: 64,
+      endUrlLabelSize: 19,
+      endUrlSize: 28,
+    },
+
+    // 1080 x 1350 for two or three lanes. Courts fill what is left of the
+    // height (layoutFrame shrinks them to fit when there are three).
+    duel: {
+      width: 1080,
+      height: 1350,
+      padTop: 56,
+      padX: 56,
+      padBottom: 44,
+
+      headerH: 36,
+      blockGap: 28,
+      titleSize: 30,
+      taglineSize: 20,
+      elapsedLabelSize: 15,
+      elapsedSize: 26,
+
+      laneMode: 'stack',
+      laneGap: 44,
+      nameColW: 0,
+      numberColW: 0,
+      colGap: 0,
+      stackGap: 14,
+      courtW: 968,
+      courtH: 300,
+      nameSize: 40,
+      providerSize: 16,
+      numberSize: 120,
+      unitSize: 30,
+      countsSize: 20,
+
+      stripH: 56,
+      poweredSize: 14,
+      logoH: 24,
+      logoClearspace: 18,
+      creditsSize: 12,
+
+      endPadTop: 100,
+      endPadX: 72,
+      endPadBottom: 48,
+      endTitleSize: 22,
+      endHeadlineSize: 78,
+      endSubtitleSize: 22,
+      endNameColW: 300,
+      endCountColW: 200,
+      endColGap: 32,
+      endRowGap: 40,
+      endMaxGap: 120,
+      endNameSize: 32,
+      endBarH: 40,
+      endBarRadius: 6,
+      endReturnsSize: 15,
+      endCountSize: 84,
+      endUrlLabelSize: 24,
+      endUrlSize: 38,
+    },
   },
 
   trail: {
@@ -435,7 +561,12 @@ export const CLIP_TOKENS: ClipTokens = {
     elapsedLabel: 'elapsed',
     msLabel: 'ms',
     poweredBy: 'Powered by',
-    measurement: `Measured from ${MEASUREMENT} · ${CREDITS}`,
+    // The measurement line already names the Gateway, so the credits that
+    // follow it leave that one out rather than say it twice on one line.
+    measurement: [
+      `Measured from ${MEASUREMENT}`,
+      ...CREDIT_PARTS.filter((part) => !MEASUREMENT.includes(part)),
+    ].join(' · '),
     endHeadline: 'Decisions in {n} seconds',
     endSubtitle: 'Same serve, same rules. The ball moves one step per model decision.',
     endUrlLabel: 'Play against Jev at',

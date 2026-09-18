@@ -24,7 +24,8 @@ export const TAGLINE =
 export const MEASUREMENT = 'Vercel (iad1) via Vercel AI Gateway';
 
 /** The credit line under every surface. */
-export const CREDITS = 'Vercel AI Gateway · AI SDK evaluate · Jev by TypeSafe AI';
+export const CREDIT_PARTS = ['Vercel AI Gateway', 'AI SDK evaluate', 'Jev by TypeSafe AI'] as const;
+export const CREDITS = CREDIT_PARTS.join(' · ');
 
 /**
  * The end card's headline window, in seconds. The clip counts decisions over

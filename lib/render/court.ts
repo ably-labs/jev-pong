@@ -43,7 +43,9 @@ export type CourtSurface =
   | 'play-phone'
   | 'watch'
   | 'clip-wide'
-  | 'clip-square';
+  | 'clip-square'
+  | 'clip-social'
+  | 'clip-duel';
 
 /** One row of design/SPEC.md "Court sizes", in reference pixels. */
 export interface CourtSize {
@@ -152,6 +154,30 @@ export const COURT_SIZES: Record<CourtSurface, CourtSize> = {
     lineInset: 12,
     trailPx: 320,
     discs: 7,
+    score: null,
+  },
+  'clip-social': {
+    w: 984,
+    h: 150,
+    ballR: 13,
+    paddleW: 9,
+    radius: 8,
+    dash: [4, 8],
+    lineInset: 14,
+    trailPx: 380,
+    discs: 8,
+    score: null,
+  },
+  'clip-duel': {
+    w: 968,
+    h: 320,
+    ballR: 18,
+    paddleW: 12,
+    radius: 10,
+    dash: [5, 10],
+    lineInset: 16,
+    trailPx: 440,
+    discs: 9,
     score: null,
   },
 };

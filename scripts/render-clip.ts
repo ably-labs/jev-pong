@@ -7,7 +7,8 @@
  * one canvas is reused for every frame, so memory is flat whatever the length.
  *
  * Usage:
- *   pnpm render:clip --seconds 12 --layout both --gif
+ *   pnpm render:clip --seconds 12 --layout both --gif      (add --layout social for the 4:5 phone cut)
+ *   pnpm render:clip --seconds 12 --layout duel --lanes jev,haiku --gif   (the two-lane meme cut)
  *   pnpm render:clip --replay public/replay.json --out out/clip \
  *                    --seconds 12 --fps 30 --layout wide --gif --start 0
  *
@@ -63,6 +64,8 @@ interface Options {
   seconds: number;
   fps: number;
   layouts: ClipLayout[];
+  /** Lane ids to draw, in this order. Empty means every lane in the replay. */
+  lanes: string[];
   gif: boolean;
   startMs: number;
 }
@@ -91,12 +94,17 @@ function parseArgs(argv: string[]): Options {
   const layouts: ClipLayout[] =
     layoutFlag === 'both'
       ? ['wide', 'square']
-      : layoutFlag === 'square'
-        ? ['square']
-        : layoutFlag === 'wide'
-          ? ['wide']
+      : layoutFlag === 'all'
+        ? ['wide', 'square', 'social']
+        : layoutFlag === 'wide' ||
+            layoutFlag === 'square' ||
+            layoutFlag === 'social' ||
+            layoutFlag === 'duel'
+          ? [layoutFlag]
           : (() => {
-              throw new Error(`--layout must be wide, square or both (got "${layoutFlag}")`);
+              throw new Error(
+                `--layout must be wide, square, social, duel, both or all (got "${layoutFlag}")`,
+              );
             })();
 
   const num = (key: string, fallback: number): number => {
@@ -113,6 +121,10 @@ function parseArgs(argv: string[]): Options {
     seconds: num('seconds', CLIP_SECONDS),
     fps: num('fps', 30),
     layouts,
+    lanes: (flags.get('lanes') ?? '')
+      .split(',')
+      .map((id) => id.trim())
+      .filter((id) => id !== ''),
     gif,
     startMs: num('start', 0) * 1000,
   };
@@ -311,7 +323,19 @@ async function main(): Promise<void> {
   }
 
   const raw = await readFile(resolve(root, opts.replay), 'utf8');
-  const replay = JSON.parse(raw) as Replay;
+  const recorded = JSON.parse(raw) as Replay;
+  // `--lanes jev,haiku` draws those lanes, in that order, from the same tape.
+  const replay: Replay =
+    opts.lanes.length === 0
+      ? recorded
+      : {
+          ...recorded,
+          lanes: opts.lanes.map((id) => {
+            const lane = recorded.lanes.find((l) => l.model === id);
+            if (lane === undefined) throw new Error(`--lanes: no lane "${id}" in ${opts.replay}`);
+            return lane;
+          }),
+        };
   const url = process.env.CLIP_URL ?? CLIP_TOKENS.copy.url;
 
   await mkdir(dirname(opts.out), { recursive: true });

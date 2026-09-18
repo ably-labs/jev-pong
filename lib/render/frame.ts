@@ -90,6 +90,14 @@ function clamp01(p: number): number {
  * Solve the frame geometry. Separated from drawing so it can be asserted in a
  * test and so a designer can see exactly what each size token moves.
  */
+/** The court surface each layout draws with (lib/render/court.ts). */
+const CLIP_SURFACES = {
+  wide: 'clip-wide',
+  square: 'clip-square',
+  social: 'clip-social',
+  duel: 'clip-duel',
+} as const;
+
 export function layoutFrame(
   tokens: ClipTokens,
   layout: ClipLayout,
@@ -148,7 +156,11 @@ export function layoutFrame(
   // Stacked: a name row over a full-width court, the phone arrangement.
   const nameRowH = s.numberSize + 4 + s.countsSize * 1.2;
   const courtW = Math.min(s.courtW, content.w);
-  const courtH = (courtW / s.courtW) * s.courtH;
+  const fixedH = (nameRowH + s.stackGap) * laneCount + s.laneGap * (laneCount - 1);
+  // A court is as tall as its tokens say, unless that many of them would not
+  // fit the frame, in which case they share what is left (the duel cut with
+  // three lanes instead of two).
+  const courtH = Math.min((courtW / s.courtW) * s.courtH, Math.max(40, (lanesH - fixedH) / laneCount));
   const blockH = nameRowH + s.stackGap + courtH;
   const stackH = blockH * laneCount + s.laneGap * (laneCount - 1);
   const top = lanesTop + Math.max(0, (lanesH - stackH) / 2);
@@ -180,15 +192,27 @@ function seconds(ms: number): string {
   return `${(Math.max(0, ms) / 1000).toFixed(1)} s`;
 }
 
-function courtTheme(tokens: ClipTokens, model: string): CourtTheme {
+/**
+ * The court colours for one lane. In the duel cut Jev's court is framed in a
+ * quiet orange hairline, so on a phone the eye finds the lane that matters
+ * before it has read a name.
+ */
+function courtTheme(tokens: ClipTokens, model: string, layout?: ClipLayout): CourtTheme {
+  const accent = layout === 'duel' && model === 'jev';
   return {
     court: tokens.colors.court,
-    hair: tokens.colors.hair,
+    hair: accent ? withAlpha(tokens.colors.jev, 0.55) : tokens.colors.hair,
     courtLine: tokens.colors.courtLine,
     paddle: tokens.colors.paddle,
     ball: ballColorFor(tokens, model),
     fgMuted: tokens.colors.fgMuted,
   };
+}
+
+/** "#FF5416" at an alpha, as an rgba() string. */
+function withAlpha(hex: string, alpha: number): string {
+  const n = Number.parseInt(hex.replace('#', ''), 16);
+  return `rgba(${(n >> 16) & 255}, ${(n >> 8) & 255}, ${n & 255}, ${alpha})`;
 }
 
 /** "5 decisions · 0 returns", with the singular where it is due. */
@@ -631,7 +655,7 @@ export function drawFrame(
   const end = opts.endCard;
   const phase = clipPhaseAt(tMs, end, tokens);
   const from = end?.fromMs ?? 0;
-  const surface = layout === 'wide' ? 'clip-wide' : 'clip-square';
+  const surface = CLIP_SURFACES[layout];
 
   // --- page ----------------------------------------------------------------
   ctx.save();
@@ -652,7 +676,7 @@ export function drawFrame(
     const style = courtStyle(
       surface,
       boxes.court.w,
-      courtTheme(tokens, lane.model),
+      courtTheme(tokens, lane.model, layout),
       number.value,
       tokens,
     );
