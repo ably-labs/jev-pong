@@ -1,3 +1,11 @@
 ignoredBuiltDependencies:
   - sharp
   - unrs-resolver
+# Jev shipped on AI Gateway 2026-09-16; ai 7.0.105 is the first release with experimental_evaluate.
+# Allow these to bypass the global minimumReleaseAge guard for this demo only.
+minimumReleaseAgeExclude:
+  - ai
+  - "@ai-sdk/*"
+  - ably
+  - zod
+  - vitest

@@ -6,14 +6,27 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "worker:local": "pnpm dlx tsx --env-file=.env.local scripts/run-worker-local.ts",
+    "verify:gateway": "pnpm dlx tsx --env-file=.env.local scripts/verify-gateway.ts",
+    "render:clip": "pnpm dlx tsx scripts/render-clip.ts"
   },
   "dependencies": {
+    "@ai-sdk/gateway": "^4.0.85",
+    "@vercel/analytics": "^2.0.1",
+    "@vercel/functions": "^3.9.7",
+    "ably": "^2.28.0",
+    "ai": "^7.0.105",
+    "geist": "^1.7.2",
     "next": "16.3.4",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
+    "@napi-rs/canvas": "^0.1.83",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
@@ -21,7 +34,8 @@
     "eslint": "^9",
     "eslint-config-next": "16.3.4",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^5.0.0"
   },
   "packageManager": "pnpm@10.22.0"
 }
