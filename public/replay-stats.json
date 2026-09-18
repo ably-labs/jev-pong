@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "recordedAt": "2026-09-17T21:45:58.794Z",
+  "seed": 20260917,
+  "seconds": 45,
+  "lanes": [
+    {
+      "model": "jev",
+      "label": "Jev",
+      "ticks": 199,
+      "decisionsPerSec": 4.4,
+      "avgMs": 227,
+      "p95Ms": 400,
+      "returns": 25,
+      "misses": 0,
+      "finalScore": [
+        0,
+        0
+      ],
+      "status": "playing"
+    },
+    {
+      "model": "gemini",
+      "label": "Gemini 3.8 Flash",
+      "ticks": 15,
+      "decisionsPerSec": 0.32,
+      "avgMs": 3167,
+      "p95Ms": 7438,
+      "returns": 2,
+      "misses": 0,
+      "finalScore": [
+        0,
+        0
+      ],
+      "status": "playing"
+    },
+    {
+      "model": "haiku",
+      "label": "Claude Haiku 4.5",
+      "ticks": 19,
+      "decisionsPerSec": 0.4,
+      "avgMs": 2483,
+      "p95Ms": 8358,
+      "returns": 2,
+      "misses": 0,
+      "finalScore": [
+        0,
+        0
+      ],
+      "status": "playing"
+    },
+    {
+      "model": "gpt",
+      "label": "GPT-5.6 Sol",
+      "ticks": 13,
+      "decisionsPerSec": 0.28,
+      "avgMs": 3529,
+      "p95Ms": 10350,
+      "returns": 2,
+      "misses": 0,
+      "finalScore": [
+        0,
+        0
+      ],
+      "status": "playing"
+    }
+  ]
+}
