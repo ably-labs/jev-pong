@@ -59,6 +59,16 @@ export const COMPARE_LANES: readonly CompareLane[] = [
   { key: 'astra-high', id: 'openai/gpt-6-astra', model: 'GPT-6 Astra', provider: 'OpenAI', setting: 'reasoning effort high', providerOptions: { openai: { reasoningEffort: 'high' } } },
   // Fable 5.1 refuses thinking "disabled"; it wants "adaptive" plus an effort.
   { key: 'fable-low', id: 'anthropic/claude-fable-5.1', model: 'Claude Fable 5.1', provider: 'Anthropic', setting: 'adaptive thinking, effort low', providerOptions: { anthropic: { thinking: { type: 'adaptive' }, effort: 'low' } } },
+  // Qwen, because Jay Bell's Trellis replay compared Jev with a Qwen 235B-class model.
+  { key: 'qwen-flash', id: 'alibaba/qwen3.8-flash', model: 'Qwen 3.8 Flash', provider: 'Alibaba', setting: 'default' },
+  { key: 'qwen-27b', id: 'alibaba/qwen3.8-27b', model: 'Qwen 3.8 27B', provider: 'Alibaba', setting: 'default' },
+  { key: 'qwen-max', id: 'alibaba/qwen3.8-max', model: 'Qwen 3.8 Max', provider: 'Alibaba', setting: 'default' },
+  { key: 'qwen-235b', id: 'alibaba/qwen-3-235b', model: 'Qwen 3 235B', provider: 'Alibaba', setting: 'default' },
+  // The smallest, cheapest chat models on the Gateway: the fair "fastest chat model" candidates.
+  { key: 'gemini-flash-lite', id: 'google/gemini-3.5-flash-lite', model: 'Gemini 3.5 Flash-Lite', provider: 'Google', setting: 'thinking off' },
+  { key: 'gpt-nano', id: 'openai/gpt-5.4-nano', model: 'GPT-5.4 Nano', provider: 'OpenAI', setting: 'default' },
+  { key: 'ministral-3b', id: 'mistral/ministral-3b', model: 'Ministral 3B', provider: 'Mistral', setting: 'default' },
+  { key: 'nemotron-nano', id: 'nvidia/nemotron-nano-9b-v2', model: 'Nemotron Nano 9B', provider: 'NVIDIA', setting: 'default' },
   { key: 'fable-high', id: 'anthropic/claude-fable-5.1', model: 'Claude Fable 5.1', provider: 'Anthropic', setting: 'adaptive thinking, effort high', providerOptions: { anthropic: { thinking: { type: 'adaptive' }, effort: 'high' } } },
 ];
 
