@@ -44,6 +44,11 @@ async function main() {
     );
   }
 
+  // Jev first, then fastest to slowest, which is the order the table shows.
+  const [jev, ...rest] = rows;
+  rest.sort((a, b) => a.p50Ms - b.p50Ms);
+  const ordered = jev?.key === 'jev' ? [jev, ...rest] : rows;
+
   const out = {
     version: 1,
     measuredAt: new Date().toISOString().slice(0, 10),
@@ -51,7 +56,7 @@ async function main() {
     floorMs: 0,
     from: `a Vercel function in ${region ?? 'the deployment region'}, next to the Gateway`,
     region,
-    rows: rows.map(({ key, model, provider, setting, answered, correct, p50Ms, p95Ms, latenciesMs, warning, error }) => ({
+    rows: ordered.map(({ key, model, provider, setting, answered, correct, p50Ms, p95Ms, latenciesMs, warning, error }) => ({
       key, model, provider, setting, answered, correct, p50Ms, p95Ms, latenciesMs,
       ...(warning ? { warning } : {}),
       ...(error ? { error } : {}),

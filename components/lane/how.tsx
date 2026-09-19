@@ -21,6 +21,7 @@ import { ATARI_PAPER_URL, JEV_CHANGELOG_URL, REPO_URL } from '@/lib/config/site'
 import { DECISION_INSTRUCTIONS, MOVE_CRITERIA, stateForModel } from '@/lib/decide/prompt';
 import { createEngine, serve, toDecisionState } from '@/lib/game/engine';
 import {
+  accuracySentence,
   COMPARISON_FLOOR_MS,
   COMPARISON_FROM,
   COMPARISON_MEASURED_AT,
@@ -186,11 +187,11 @@ function OtherModels() {
       <Body>
         The four lanes were chosen to be simple: one typed-decision model against the three chat
         models most people recognise, recorded next to the Gateway so nothing on the front page is
-        anyone&apos;s broadband. After launch, people asked about the newest frontier models. So the
-        same question went to them too, on {COMPARISON_MEASURED_AT}: {COMPARISON_STATES} real game
+        anyone&apos;s broadband. After launch, people asked about the newest frontier models, about Qwen,
+        and about the smallest chat models. So the same question went to them too, on {COMPARISON_MEASURED_AT}: {COMPARISON_STATES} real game
         states, one call per decision, sequential, reasoning switched to the lowest setting each
-        provider accepts. The principle holds. The fastest of them is several times slower than Jev,
-        and none is more accurate on this question.
+        provider accepts. The principle holds: nothing gets near Jev&apos;s time without starting to
+        get the question wrong, and nothing is more accurate.
       </Body>
 
       <div className="max-w-[700px] overflow-x-auto">
@@ -215,8 +216,8 @@ function OtherModels() {
                 <td className="mono py-1.5 pr-3 text-right">
                   {row.correct}/{row.answered}
                 </td>
-                <td className="mono py-1.5 pr-3 text-right">{row.p50Ms} ms</td>
-                <td className="mono py-1.5 pr-3 text-right">{row.p95Ms} ms</td>
+                <td className="mono py-1.5 pr-3 text-right">{row.adjustedP50Ms} ms</td>
+                <td className="mono py-1.5 pr-3 text-right">{row.adjustedP95Ms} ms</td>
                 <td className="mono py-1.5 text-right">{row.timesJev}x</td>
               </tr>
             ))}
@@ -225,11 +226,15 @@ function OtherModels() {
       </div>
 
       <Body>
-        Measured from {COMPARISON_FROM}, so every row carries the same request overhead, about{' '}
-        {COMPARISON_FLOOR_MS} ms; the last column removes it before dividing, which puts Jev within
-        noise of its Vercel-side figure on the front page. Astra at medium effort landed between low
-        and high, and Fable at high effort changed nothing, so neither is listed twice. Every chat
-        model answered all {COMPARISON_STATES} correctly; Jev missed one. Not smarter. Faster.
+        Measured from {COMPARISON_FROM}, which is where the lanes were recorded, so Jev&apos;s
+        median here is the same round trip the front page shows.
+        {COMPARISON_FLOOR_MS > 0
+          ? ` Every row carries the same ${COMPARISON_FLOOR_MS} ms of request overhead from there, removed before the columns are shown.`
+          : ''}{' '}
+        Astra at medium effort landed with low and high, all within 200 ms of each other on a
+        one-token answer, and Fable at high effort came in at 3.6 s with an 11 s p95, so neither
+        setting is listed twice: the setting is not what makes them slow.{' '}
+        {accuracySentence(comparisonRows())} Not smarter. Faster.
       </Body>
     </Section>
   );

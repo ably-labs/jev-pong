@@ -37,19 +37,26 @@ Why Pong: in the [Atari-GPT benchmark](https://arxiv.org/html/2408.15950v2), Pon
 
 ### Since then: other models, same question
 
-The four lanes were chosen to be simple: one typed-decision model against the three chat models most people recognise. After launch, people asked about the newest frontier models, so on September 19, 2026 the same question went to them too: 30 real game states, one call per decision, sequential, reasoning switched to the lowest setting each provider accepts (Astra refuses "minimal" and takes low, medium or high; Fable 5.1 refuses "disabled" and takes adaptive with an effort). This run was made from a laptop through the Gateway rather than from Vercel, so every row carries the same request overhead, about 120 ms, which the last column removes before dividing. The data is `public/model-comparison.json` and the how page renders it.
+The four lanes were chosen to be simple: one typed-decision model against the three chat models most people recognise. After launch, people asked about the newest frontier models, about Qwen, and about the smallest chat models, so on September 19, 2026 the same question went to them too: 30 real game states, one call per decision, sequential, reasoning switched to the lowest setting each provider accepts (Astra refuses "minimal" and takes low, medium or high; Fable 5.1 refuses "disabled" and takes adaptive with an effort). It was measured from a Vercel function in iad1, next to the Gateway, which is where the lanes were recorded, so Jev's median here is the same round trip the front page shows. The data is `public/model-comparison.json`, with every counted latency in it, and the how page renders it.
 
 | Model | Setting | Correct | Median | p95 | Slower than Jev |
 |---|---|---|---|---|---|
-| Jev | evaluate | 29/30 | 359 ms | 518 ms | 1.0x |
-| Claude Haiku 4.5 | thinking off | 30/30 | 942 ms | 1572 ms | 3.4x |
-| GPT-6 Astra-fast | effort low | 30/30 | 1402 ms | 1884 ms | 5.4x |
-| GPT-5.6 Sol | default | 30/30 | 1485 ms | 2343 ms | 5.7x |
-| GPT-6 Astra | effort low | 30/30 | 1774 ms | 2193 ms | 6.9x |
-| GPT-6 Astra | effort high | 30/30 | 1733 ms | 2747 ms | 6.7x |
-| Claude Fable 5.1 | adaptive, effort low | 30/30 | 3902 ms | 4918 ms | 15.8x |
+| Jev | evaluate | 28/29 | 222 ms | 288 ms | 1.0x |
+| Ministral 3B | default | 26/30 | 396 ms | 588 ms | 1.8x |
+| Qwen 3 235B | thinking off | 28/30 | 608 ms | 919 ms | 2.7x |
+| Gemini 3.5 Flash-Lite | thinking off | 30/30 | 660 ms | 799 ms | 3.0x |
+| Claude Haiku 4.5 | thinking off | 30/30 | 791 ms | 1885 ms | 3.6x |
+| GPT-5.4 Nano | default | 29/30 | 799 ms | 1070 ms | 3.6x |
+| Qwen 3.8 Max | thinking off | 30/30 | 834 ms | 1222 ms | 3.8x |
+| Qwen 3.8 27B | thinking off | 30/30 | 950 ms | 2928 ms | 4.3x |
+| Qwen 3.8 Flash | thinking off | 30/30 | 951 ms | 2358 ms | 4.3x |
+| GPT-5.6 Sol | default | 30/30 | 1153 ms | 1954 ms | 5.2x |
+| GPT-6 Astra-fast | reasoning effort low | 30/30 | 1355 ms | 3158 ms | 6.1x |
+| GPT-6 Astra | reasoning effort low | 30/30 | 1542 ms | 2113 ms | 6.9x |
+| GPT-6 Astra | reasoning effort high | 30/30 | 1548 ms | 2763 ms | 7.0x |
+| Claude Fable 5.1 | adaptive thinking, effort low | 30/30 | 4530 ms | 6887 ms | 20.4x |
 
-Astra's medium effort landed between low and high, and Fable at high effort changed nothing. Every chat model answered all 30 correctly; Jev missed one. Not smarter, faster. The script is `.working/frontier-compare.mts` in a checkout; it is not part of the app.
+Astra at medium effort landed with low and high, all within 200 ms of each other on a one-token answer, and Fable at high effort came in at 3.6 s with an 11 s p95, so the setting is not what makes them slow. Qwen 3.8 thinks by default (85 output tokens and 3 to 11 s for a one-word answer); `enableThinking: false` is the switch, and the Qwen rows use it. Nothing gets near Jev's time without starting to get the question wrong: Ministral 3B is the closest at 1.8x and answered 26 of 30; the fastest model with every answer right is Gemini 3.5 Flash-Lite at 3.0x. Jev missed one, and got no answer to one call (a 503 from the Gateway), which is not counted. Nemotron Nano 9B returned no usable object on any call through the Gateway and is left out. Not smarter, faster. `POST /api/compare` runs one lane from the Vercel function (admin token required, like `/api/record`) and `scripts/compare-models.ts` drives it lane by lane.
 
 ## What counts as one decision
 
