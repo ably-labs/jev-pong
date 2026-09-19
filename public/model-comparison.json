@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "measuredAt": "2026-09-19",
+  "states": 30,
+  "floorMs": 120,
+  "from": "a laptop in London, through Vercel AI Gateway",
+  "rows": [
+    { "model": "Jev", "provider": "TypeSafe AI", "setting": "evaluate", "answered": 30, "correct": 29, "p50Ms": 359, "p95Ms": 518 },
+    { "model": "Claude Haiku 4.5", "provider": "Anthropic", "setting": "thinking off", "answered": 30, "correct": 30, "p50Ms": 942, "p95Ms": 1572 },
+    { "model": "GPT-6 Astra-fast", "provider": "OpenAI", "setting": "reasoning effort low", "answered": 30, "correct": 30, "p50Ms": 1402, "p95Ms": 1884 },
+    { "model": "GPT-5.6 Sol", "provider": "OpenAI", "setting": "default", "answered": 30, "correct": 30, "p50Ms": 1485, "p95Ms": 2343 },
+    { "model": "GPT-6 Astra", "provider": "OpenAI", "setting": "reasoning effort low", "answered": 30, "correct": 30, "p50Ms": 1774, "p95Ms": 2193 },
+    { "model": "GPT-6 Astra", "provider": "OpenAI", "setting": "reasoning effort high", "answered": 30, "correct": 30, "p50Ms": 1733, "p95Ms": 2747 },
+    { "model": "Claude Fable 5.1", "provider": "Anthropic", "setting": "adaptive thinking, effort low", "answered": 30, "correct": 30, "p50Ms": 3902, "p95Ms": 4918 }
+  ]
+}

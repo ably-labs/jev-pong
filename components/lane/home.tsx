@@ -240,6 +240,16 @@ function Story() {
         , so a loop that won&apos;t wait is the fair place to see what that&apos;s worth.
       </p>
 
+      <p className="text-fg-muted text-[13px] leading-[1.6] text-pretty lg:text-[14px]">
+        The four lanes are deliberately the four everyone knows. Since recording them the same
+        question has been put to five more models, including GPT-6 Astra and Claude Fable 5.1.
+        Same result.{' '}
+        <Link href="/how#other-models" className="text-fg hover:underline">
+          See the numbers
+        </Link>
+        .
+      </p>
+
       <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center sm:gap-3">
         <PrimaryLink href="/play">Play against Jev</PrimaryLink>
         <Link

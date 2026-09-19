@@ -35,6 +35,22 @@ Jev is reachable through Vercel AI Gateway as `typesafe-ai/jev` with AI SDK 7.0.
 
 Why Pong: in the [Atari-GPT benchmark](https://arxiv.org/html/2408.15950v2), Pong was the game chat models handled worst, below random, because deciding takes them longer than the game gives them.
 
+### Since then: other models, same question
+
+The four lanes were chosen to be simple: one typed-decision model against the three chat models most people recognise. After launch, people asked about the newest frontier models, so on September 19, 2026 the same question went to them too: 30 real game states, one call per decision, sequential, reasoning switched to the lowest setting each provider accepts (Astra refuses "minimal" and takes low, medium or high; Fable 5.1 refuses "disabled" and takes adaptive with an effort). This run was made from a laptop through the Gateway rather than from Vercel, so every row carries the same request overhead, about 120 ms, which the last column removes before dividing. The data is `public/model-comparison.json` and the how page renders it.
+
+| Model | Setting | Correct | Median | p95 | Slower than Jev |
+|---|---|---|---|---|---|
+| Jev | evaluate | 29/30 | 359 ms | 518 ms | 1.0x |
+| Claude Haiku 4.5 | thinking off | 30/30 | 942 ms | 1572 ms | 3.4x |
+| GPT-6 Astra-fast | effort low | 30/30 | 1402 ms | 1884 ms | 5.4x |
+| GPT-5.6 Sol | default | 30/30 | 1485 ms | 2343 ms | 5.7x |
+| GPT-6 Astra | effort low | 30/30 | 1774 ms | 2193 ms | 6.9x |
+| GPT-6 Astra | effort high | 30/30 | 1733 ms | 2747 ms | 6.7x |
+| Claude Fable 5.1 | adaptive, effort low | 30/30 | 3902 ms | 4918 ms | 15.8x |
+
+Astra's medium effort landed between low and high, and Fable at high effort changed nothing. Every chat model answered all 30 correctly; Jev missed one. Not smarter, faster. The script is `.working/frontier-compare.mts` in a checkout; it is not part of the app.
+
 ## What counts as one decision
 
 The state is a JSON object of numbers and nothing else, about 125 bytes. The engine builds the real one from a served game:

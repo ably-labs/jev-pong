@@ -21,6 +21,13 @@ import { ATARI_PAPER_URL, JEV_CHANGELOG_URL, REPO_URL } from '@/lib/config/site'
 import { DECISION_INSTRUCTIONS, MOVE_CRITERIA, stateForModel } from '@/lib/decide/prompt';
 import { createEngine, serve, toDecisionState } from '@/lib/game/engine';
 import {
+  COMPARISON_FLOOR_MS,
+  COMPARISON_FROM,
+  COMPARISON_MEASURED_AT,
+  COMPARISON_STATES,
+  comparisonRows,
+} from '@/lib/ui/comparison';
+import {
   MODEL_PADDLE_STEP,
   PLAY_MIN_STEP_MS,
   SEGMENTS_PER_CROSSING,
@@ -43,7 +50,8 @@ export function How() {
         <Rules />
         <WhatTheModelSees />
         <VsChatModels />
-        <OverAbly />
+        <OtherModels />
+      <OverAbly />
         <ReadTheCode />
       </div>
 
@@ -165,6 +173,63 @@ function VsChatModels() {
         the identical state and the identical words through structured output, at temperature 0,
         with reasoning off. Nobody gets a retry. The number on a lane is the round trip of that one
         call, timed on the server, and nothing else.
+      </Body>
+    </Section>
+  );
+}
+
+/* ------------------------------------------------------ the other models */
+
+function OtherModels() {
+  return (
+    <Section id="other-models" title="Other models, same question">
+      <Body>
+        The four lanes were chosen to be simple: one typed-decision model against the three chat
+        models most people recognise, recorded next to the Gateway so nothing on the front page is
+        anyone&apos;s broadband. After launch, people asked about the newest frontier models. So the
+        same question went to them too, on {COMPARISON_MEASURED_AT}: {COMPARISON_STATES} real game
+        states, one call per decision, sequential, reasoning switched to the lowest setting each
+        provider accepts. The principle holds. The fastest of them is several times slower than Jev,
+        and none is more accurate on this question.
+      </Body>
+
+      <div className="max-w-[700px] overflow-x-auto">
+        <table className="w-full min-w-[520px] text-[12px] lg:text-[13px]">
+          <thead>
+            <tr className="text-fg-muted border-hair border-b text-left">
+              <th className="py-1.5 pr-3 font-medium">Model</th>
+              <th className="py-1.5 pr-3 font-medium">Setting</th>
+              <th className="py-1.5 pr-3 text-right font-medium">Correct</th>
+              <th className="py-1.5 pr-3 text-right font-medium">Median</th>
+              <th className="py-1.5 pr-3 text-right font-medium">p95</th>
+              <th className="py-1.5 text-right font-medium">vs Jev</th>
+            </tr>
+          </thead>
+          <tbody>
+            {comparisonRows().map((row) => (
+              <tr key={`${row.model} ${row.setting}`} className="border-hair border-b">
+                <td className={`py-1.5 pr-3 font-semibold ${row.model === 'Jev' ? 'text-jev-ink' : 'text-fg'}`}>
+                  {row.model}
+                </td>
+                <td className="text-fg-muted py-1.5 pr-3">{row.setting}</td>
+                <td className="mono py-1.5 pr-3 text-right">
+                  {row.correct}/{row.answered}
+                </td>
+                <td className="mono py-1.5 pr-3 text-right">{row.p50Ms} ms</td>
+                <td className="mono py-1.5 pr-3 text-right">{row.p95Ms} ms</td>
+                <td className="mono py-1.5 text-right">{row.timesJev}x</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <Body>
+        Measured from {COMPARISON_FROM}, so every row carries the same request overhead, about{' '}
+        {COMPARISON_FLOOR_MS} ms; the last column removes it before dividing, which puts Jev within
+        noise of its Vercel-side figure on the front page. Astra at medium effort landed between low
+        and high, and Fable at high effort changed nothing, so neither is listed twice. Every chat
+        model answered all {COMPARISON_STATES} correctly; Jev missed one. Not smarter. Faster.
       </Body>
     </Section>
   );
