@@ -60,10 +60,12 @@ export const COMPARE_LANES: readonly CompareLane[] = [
   // Fable 5.1 refuses thinking "disabled"; it wants "adaptive" plus an effort.
   { key: 'fable-low', id: 'anthropic/claude-fable-5.1', model: 'Claude Fable 5.1', provider: 'Anthropic', setting: 'adaptive thinking, effort low', providerOptions: { anthropic: { thinking: { type: 'adaptive' }, effort: 'low' } } },
   // Qwen, because Jay Bell's Trellis replay compared Jev with a Qwen 235B-class model.
-  { key: 'qwen-flash', id: 'alibaba/qwen3.8-flash', model: 'Qwen 3.8 Flash', provider: 'Alibaba', setting: 'default' },
-  { key: 'qwen-27b', id: 'alibaba/qwen3.8-27b', model: 'Qwen 3.8 27B', provider: 'Alibaba', setting: 'default' },
-  { key: 'qwen-max', id: 'alibaba/qwen3.8-max', model: 'Qwen 3.8 Max', provider: 'Alibaba', setting: 'default' },
-  { key: 'qwen-235b', id: 'alibaba/qwen-3-235b', model: 'Qwen 3 235B', provider: 'Alibaba', setting: 'default' },
+  // Qwen 3.8 thinks by default (85 output tokens for a one-word answer, 3 to 11 s a call);
+  // `enableThinking: false` is the switch the Gateway honours, verified 2026-09-19.
+  { key: 'qwen-flash', id: 'alibaba/qwen3.8-flash', model: 'Qwen 3.8 Flash', provider: 'Alibaba', setting: 'thinking off', providerOptions: { alibaba: { enableThinking: false } } },
+  { key: 'qwen-27b', id: 'alibaba/qwen3.8-27b', model: 'Qwen 3.8 27B', provider: 'Alibaba', setting: 'thinking off', providerOptions: { alibaba: { enableThinking: false } } },
+  { key: 'qwen-max', id: 'alibaba/qwen3.8-max', model: 'Qwen 3.8 Max', provider: 'Alibaba', setting: 'thinking off', providerOptions: { alibaba: { enableThinking: false } } },
+  { key: 'qwen-235b', id: 'alibaba/qwen-3-235b', model: 'Qwen 3 235B', provider: 'Alibaba', setting: 'thinking off', providerOptions: { alibaba: { enableThinking: false } } },
   // The smallest, cheapest chat models on the Gateway: the fair "fastest chat model" candidates.
   { key: 'gemini-flash-lite', id: 'google/gemini-3.5-flash-lite', model: 'Gemini 3.5 Flash-Lite', provider: 'Google', setting: 'thinking off' },
   { key: 'gpt-nano', id: 'openai/gpt-5.4-nano', model: 'GPT-5.4 Nano', provider: 'OpenAI', setting: 'default' },
